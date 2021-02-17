@@ -1,29 +1,25 @@
 package ru.itsjava.service;
 
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Qualifier;
-import ru.itsjava.domain.Coffee;
+import lombok.*;
 
-import java.util.Scanner;
+import ru.itsjava.domain.Coffee;
 
 public class CoffeeServiceImpl implements CoffeeService {
 
     private Coffee coffee;
-    private final BufferedReaderService bufferedReaderService;
-    private final ScannerService scannerService;
-
-    public CoffeeServiceImpl() {
-        bufferedReaderService = new BufferedReaderServiceImpl();
-        scannerService = new ScannerServiceImpl();
-    }
-
-
+    private BufferedReaderService bufferedReaderService;
+    private ScannerService scannerService;
 
     @SneakyThrows
     @Override
     public Coffee getCoffeeByPrice(double price) {
+
+        bufferedReaderService=new BufferedReaderServiceImpl();
         bufferedReaderService.menuReader("src/main/resources/menu.txt");
-        scannerService.read(price);
+
+        if (scannerService != null) {
+            scannerService.read(price);
+        }
 
         while (true) {
             if (price == 60) {
@@ -42,8 +38,7 @@ public class CoffeeServiceImpl implements CoffeeService {
                 coffee = new Coffee("Латте");
                 System.out.println("Ваш выбор " + coffee + "!" + "Получите пожалуйста:-)");
                 return coffee;
-            }
-            else if (price != 60 && price != 80 && price != 100 && price != 110) {
+            } else if (price != 60 && price != 80 && price != 100 && price != 110) {
                 System.out.println("Другого кофе нет. Попробуйте еще!");
             }
         }
