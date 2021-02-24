@@ -4,24 +4,22 @@ import lombok.*;
 
 import ru.itsjava.domain.Coffee;
 
+@RequiredArgsConstructor
 public class CoffeeServiceImpl implements CoffeeService {
 
-    private Coffee coffee;
-    private BufferedReaderService bufferedReaderService;
-    private ScannerService scannerService;
+    private final MenuService menuService;
+    private final ScannerService scannerService;
 
     @SneakyThrows
     @Override
-    public Coffee getCoffeeByPrice(double price) {
+    public Coffee getCoffee() {
 
-        bufferedReaderService=new BufferedReaderServiceImpl();
-        bufferedReaderService.menuReader("src/main/resources/menu.txt");
+        menuService.menuReader("src/main/resources/menu.txt");
 
-        if (scannerService != null) {
-            scannerService.read(price);
-        }
+        Coffee coffee;
 
         while (true) {
+            int price = scannerService.readPrice();
             if (price == 60) {
                 coffee = new Coffee("Эспрессо");
                 System.out.println("Ваш выбор " + coffee + "!" + "Получите пожалуйста:-)");
@@ -38,7 +36,7 @@ public class CoffeeServiceImpl implements CoffeeService {
                 coffee = new Coffee("Латте");
                 System.out.println("Ваш выбор " + coffee + "!" + "Получите пожалуйста:-)");
                 return coffee;
-            } else if (price != 60 && price != 80 && price != 100 && price != 110) {
+            } else {
                 System.out.println("Другого кофе нет. Попробуйте еще!");
             }
         }

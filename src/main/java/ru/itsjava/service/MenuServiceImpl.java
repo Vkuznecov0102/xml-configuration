@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class BufferedReaderServiceImpl implements BufferedReaderService {
+public class MenuServiceImpl implements MenuService {
 
     @Override
     @SneakyThrows

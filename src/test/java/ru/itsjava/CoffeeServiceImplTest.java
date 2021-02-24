@@ -14,12 +14,12 @@ public class CoffeeServiceImplTest {
 
     @Test
     public void getCoffeeByPriceTest() {
-        when(mockedCSI.getCoffeeByPrice(60)).thenReturn(new Coffee("Эспрессо"));
-        when(mockedCSI.getCoffeeByPrice(80)).thenReturn(new Coffee("Американо"));
-        when(mockedCSI.getCoffeeByPrice(100)).thenReturn(new Coffee("Капучино"));
-        when(mockedCSI.getCoffeeByPrice(110)).thenReturn(new Coffee("Латте"));
+        when(mockedCSI.getCoffee()).thenReturn(new Coffee("Латте"));
+        when(mockedCSI.getCoffee()).thenReturn(new Coffee("Американо"));
+        when(mockedCSI.getCoffee()).thenReturn(new Coffee("Капучино"));
+        when(mockedCSI.getCoffee()).thenReturn(new Coffee("Эспрессо"));
 
-        Assertions.assertEquals(mockedCSI.getCoffeeByPrice(60), new Coffee("Эспрессо"));
-        Assertions.assertNull(mockedCSI.getCoffeeByPrice(300));
+        Assertions.assertEquals(mockedCSI.getCoffee(), new Coffee("Эспрессо"));
+        Assertions.assertNotNull(mockedCSI.getCoffee(), String.valueOf(new Coffee("Латте")));
     }
 }
